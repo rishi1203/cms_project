@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CMS Content</title>
+    <script>
+        window.onload = function () {
+            fetch('http://localhost:8000/api/content/')
+                .then(response => response.json())
+                .then(data => {
+                    let contentList = document.getElementById("content-list");
+                    data.forEach(content => {
+                        let li = document.createElement("li");
+                        li.innerText = `Title: ${content.title}, Summary: ${content.summary}`;
+                        contentList.appendChild(li);
+                    });
+                });
+        };
+    </script>
+</head>
+<body>
+    <h1>CMS Content</h1>
+    <ul id="content-list"></ul>
+</body>
+</html>
