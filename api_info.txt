@@ -1,4 +1,4 @@
-superadmin = email: ri***@gmail.com
+superuser = email: ri***@gmail.com
 pass: rishi1234
 
 post http://127.0.0.1:8000/register/
@@ -9,8 +9,10 @@ post http://127.0.0.1:8000/register/
     "phone": "1234567890",
     "pincode": "123456"
 }
-post
-http://127.0.0.1:8000/login/
+
+
+post http://127.0.0.1:8000/login/
+
 body = {
     "email": "rishikesh@test.com",
     "password": "Password123"
@@ -20,3 +22,14 @@ response:
     "access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM3NDg2NTY2LCJpYXQiOjE3Mzc0ODU2NjYsImp0aSI6IjE1ZGY2YzMzM2RiYTQ5ZTZiZGNhODAxNTk1YzQ0ZmQzIiwidXNlcl9pZCI6Mn0.XsXbvHlZoj8oFiXWTyLUPQD3UllA5raw8daSWedjeq0",
     "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODA5MDQ2NiwiaWF0IjoxNzM3NDg1NjY2LCJqdGkiOiI5OTU1MDA0M2RjODM0OGM0YjAwYTI1Y2Q3ZmU0NmY3ZCIsInVzZXJfaWQiOjJ9.pjR4LQNcM1yfED37Veh39q0HqtOATAh5Ou5gBpHk2rE"
 }
+
+post http://127.0.0.1:8000/api/content/
+header = Bearer <access_token>
+body = form-data
+key   |  values
+title  :  Comedy content
+body  :  this content is too much comedy 
+summary  :  I hope you like it
+document  : [add any pdf file]
+category  :  1
+author  :  rishikeshjoshi1203@gmail.com

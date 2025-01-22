@@ -25,8 +25,8 @@ class UserManager(BaseUserManager):
 
 # Custom User Model
 class User(AbstractUser):
-    username = None  # Remove the default username field
-    email = models.EmailField(unique=True)  # Use email as the unique identifier
+    username = None  
+    email = models.EmailField(unique=True)  # Using email as the unique identifier
     phone = models.CharField(max_length=10)
     address = models.TextField(blank=True, null=True)
     city = models.CharField(max_length=50, blank=True, null=True)
@@ -36,12 +36,12 @@ class User(AbstractUser):
     ROLE_CHOICES = (('admin', 'Admin'), ('author', 'Author'))
     role = models.CharField(max_length=10, choices=ROLE_CHOICES, default='author')
 
-    objects = UserManager()  # Use the custom manager
+    objects = UserManager()  
     @property
     def full_name(self):
         return f"{self.first_name} {self.last_name}"
-    USERNAME_FIELD = 'email'  # Set email as the unique identifier
-    REQUIRED_FIELDS = []  # Define additional required fields
+    USERNAME_FIELD = 'email'  # using email as unique identifier
+    REQUIRED_FIELDS = []  
 
     def __str__(self):
         return self.email
@@ -62,7 +62,7 @@ class Content(models.Model):
     body = models.TextField()
     summary = models.CharField(max_length=60)
     document = models.FileField(upload_to='documents/')
-    categories = models.ManyToManyField(Category)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='contents')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

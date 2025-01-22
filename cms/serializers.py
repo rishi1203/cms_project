@@ -1,16 +1,12 @@
 from rest_framework import serializers
 from .models import User, Content, Category
 
-# cms/serializers.py
-
-from rest_framework import serializers
-from .models import User
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['id', 'email', 'full_name', 'address', 'city', 'state', 'country', 'pincode', 'password']
-        extra_kwargs = {'password': {'write_only': True}}  # Password is write-only
+        extra_kwargs = {'password': {'write_only': True}} 
 
     def create(self, validated_data):
         password = validated_data.pop('password')
@@ -27,15 +23,12 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class ContentSerializer(serializers.ModelSerializer):
-    categories = CategorySerializer(many=True)
+    category = serializers.PrimaryKeyRelatedField(queryset=Category.objects.all())  
+
     author = UserSerializer(read_only=True)
 
     class Meta:
         model = Content
-        fields = ['id', 'title', 'body', 'summary', 'document', 'categories', 'author', 'created_at', 'updated_at']
+        fields = ['id', 'title', 'body', 'summary', 'document', 'category', 'author', 'created_at', 'updated_at']
     
-    # def validate(self, data):
-    #     # Ensure document is a PDF
-    #     if 'document' in data and not data['document'].name.endswith('.pdf'):
-    #         raise serializers.ValidationError('Document must be a PDF file.')
-    #     return data
+  

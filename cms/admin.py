@@ -17,6 +17,6 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Content)
 class ContentAdmin(admin.ModelAdmin):
-    list_display = ('title', 'author', 'created_at')
-    list_filter = ('categories', 'created_at', 'updated_at')
-    search_fields = ('title', 'summary', 'categories__name')
+    list_display = ('title', 'author', 'created_at','category')
+    list_filter = ('category', 'created_at', 'updated_at')
+    search_fields = ('title', 'summary')
